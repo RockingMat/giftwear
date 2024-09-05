@@ -7,20 +7,24 @@ interface ItemProps {
   index: number;
   alt: string;
   customClass: string;
-  width: number;
+  height: number;
   onClick: () => void;
 }
 
-const Item: React.FC<ItemProps> = ({ src, index, alt, customClass, width, onClick }) => {
+const Item: React.FC<ItemProps> = ({ src, index, alt, customClass, height, onClick }) => {
   const swiper = useSwiper();
   const handleItemClick = () => {
     swiper.slideTo(index);
     onClick();
     
   }
+  console.log(height);
   return (
-    <div className={`item flex items-center justify-center cursor-pointer w-[${width}px] h-[500px]  ${customClass} border-8 border-black`} onClick={handleItemClick}>
-      <img className="object-cover w-full h-full" src={src} alt={alt} />
+    <div
+      className={`flex items-center justify-center cursor-pointer ${customClass} border-4 border-black bg-white rounded-lg`}
+      onClick={handleItemClick}
+    >
+      <img src={src} alt={alt} className={`object-contain`} style={{ maxHeight: `${height}rem` }} />
     </div>
   );
 };

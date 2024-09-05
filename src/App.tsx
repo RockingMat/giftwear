@@ -16,7 +16,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<CelebritySwiper likedStyles={likedStyles} setLikedStyles={setLikedStyles}/>} />
         <Route path="/catalog" element={<Catalog likedStyles={likedStyles} setItem={setItem}/>} />
-        <Route path="/styling" element={<Styling item={item}/>} />
+        <Route path="/styling" element={<Styling upperwearItem={item}/>} />
       </Routes>
     </Router>
   );

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { getCatalogueItems } from '../../services/catalogueService';
+import { getUpperwearItems } from '../../services/catalogueService';
 import ItemList from './ItemList';
 import { useNavigate } from 'react-router-dom';
 import CatalogItemCard from './CatalogItemCard';
 import "../../style.scss";
+import { slide } from '../Interfaces/Item';
 
 interface CatalogProps {
   likedStyles: string[];
@@ -31,7 +32,7 @@ const Catalog: React.FC<CatalogProps> = ({ likedStyles, setItem }) => {
   useEffect(() => {
     const fetchCatalogData = async () => {
       try {
-        const data = await getCatalogueItems();
+        const data = await getUpperwearItems();
         if (data.length === 0) {
           setError('No items found in the catalog.');
         } else {
@@ -54,12 +55,17 @@ const Catalog: React.FC<CatalogProps> = ({ likedStyles, setItem }) => {
 
   
   else{
+    const upperwearSlides: slide[] = items.map(item => ({
+      image: item.fields["Model"]?.[0].url,
+      name: item.fields.Name
+    }));
+  
     const activeItem = items[activeIndex];
     return (
-      <div className="flex h-screen w-screen border-8 border-black">
+      <div className="flex h-screen w-screen bg-white">
         {/* Left Component - 2/3 of the screen */}
         <div className="flex-2 container mx-auto overflow-hidden">
-          <ItemList items = {items} activeIndex={activeIndex} setActiveIndex={setActiveIndex}/>
+          <ItemList name="upperwear" items = {upperwearSlides} activeIndex={activeIndex} setActiveIndex={setActiveIndex} height={300}/>
         </div>
         {/* Right Component - 1/3 of the screen */}
         <div className="flex-1 container mx-auto overflow-hidden">
