@@ -11,7 +11,7 @@ const CatalogItemCard: React.FC<CatalogItemCardProps> = ({ title, price, imageUr
   return (
     //I want to create a card that displays the title, price, and image of a product. The card should have a button that when clicked, calls the onAddToCart function.
     //I want the image to be transparent and centered in the container. The title and price should be displayed underneath the image.
-    <div className="flex flex-col items-center justify-center p-4">
+    <div className="flex flex-col items-center justify-center p-4 border">
       <img src={imageUrl} alt={title} className="w-48 h-48 object-contain" />
       <h2 className="text-xl font-bold">{title}</h2>
       <p className="text-sm">{price}</p>

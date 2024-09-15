@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { getUpperwearItems } from '../../services/catalogueService';
 import ItemList from './ItemList';
 import { useNavigate } from 'react-router-dom';
-import CatalogItemCard from './CatalogItemCard';
 import "../../style.scss";
-import { slide } from '../Interfaces/Item';
+import { product, slide } from '../Interfaces/Item';
+import ItemInformation from './ItemInformation';
 
 interface CatalogProps {
   likedStyles: string[];
@@ -19,6 +19,9 @@ const Catalog: React.FC<CatalogProps> = ({ likedStyles, setItem }) => {
   const [error, setError] = useState<string | null>(null);
   const [styling, setStyling] = useState(false);
   const navigate = useNavigate();
+  const [firstSwiper, setFirstSwiper] = useState(null);
+  const [secondSwiper, setSecondSwiper] = useState(null);
+
   const handleAddToCart = () => {
     setItem(items[activeIndex]);
     setStyling(true);
@@ -59,23 +62,35 @@ const Catalog: React.FC<CatalogProps> = ({ likedStyles, setItem }) => {
       image: item.fields["Model"]?.[0].url,
       name: item.fields.Name
     }));
-  
-    const activeItem = items[activeIndex];
-    return (
+    const productSlides: product[] = items.map(item => ({
+      imageUrl: item.fields["Front"]?.[0].url,
+      price: item.fields.Status,
+      title: item.fields.Name
+    }));
+      return (
       <div className="flex h-screen w-screen bg-white">
         {/* Left Component - 2/3 of the screen */}
-        <div className="flex-2 container mx-auto overflow-hidden">
-          <ItemList name="upperwear" items = {upperwearSlides} activeIndex={activeIndex} setActiveIndex={setActiveIndex} height={300}/>
+        <div className="basis-2/3 container mx-auto overflow-hidden">
+          <ItemList 
+            name="upperwear" 
+            items = {upperwearSlides} 
+            activeIndex={activeIndex} 
+            setActiveIndex={setActiveIndex} 
+            height={150} 
+            controlledSwiper={secondSwiper}
+            setControlledSwiper={setFirstSwiper}
+          />
         </div>
         {/* Right Component - 1/3 of the screen */}
-        <div className="flex-1 container mx-auto overflow-hidden">
+        <div className="basis-1/3 container mx-auto overflow-hidden">
           
-          <CatalogItemCard 
-            title={activeItem.fields.Name}
-            price={activeItem.fields.Status}
-            imageUrl={activeItem.fields["Front"]?.[0].url}
-            onAddToCart={handleAddToCart}
-          />
+          <ItemInformation
+            items={productSlides}
+            onClick={handleAddToCart}
+            controlledSwiper={firstSwiper}
+            setControlledSwiper={setSecondSwiper}
+            setActiveIndex={setActiveIndex}
+            />
         </div>
       </div>
     );

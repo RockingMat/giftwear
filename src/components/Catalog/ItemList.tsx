@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Item from './Item';
 import { gsap } from 'gsap';
 import "../../style.scss";
 // import Swiper core and required modules
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Virtual } from 'swiper/modules';
+import { Controller, Virtual } from 'swiper/modules';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/swiper-bundle.css';
@@ -18,9 +18,15 @@ interface ItemListProps {
   activeIndex: number;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
   height: number;
+  controlledSwiper?: any;
+  setControlledSwiper?: (swiper: any) => void;
 }
 
-const ItemList: React.FC<ItemListProps> = ({name, items, activeIndex, setActiveIndex, height}) => {
+const ItemList: React.FC<ItemListProps> = ({name, items, activeIndex, setActiveIndex, height, controlledSwiper, setControlledSwiper}) => {
+  
+  useEffect(() => {
+    handleClick(activeIndex);
+  }, [activeIndex]);
   
   const handleClick = (index: number) => {
     setActiveIndex(index);
@@ -43,12 +49,14 @@ const ItemList: React.FC<ItemListProps> = ({name, items, activeIndex, setActiveI
     <Swiper
       className={`w-full mx-auto overflow-visible`}
       style={{ maxHeight: `${height}rem` }}
-      modules={[Virtual]}
+      modules={[Virtual, Controller]}
       spaceBetween={30}
       slidesPerView={3}
-      speed={800}
+      speed={600}
       centeredSlides={true}
       virtual
+      {...(controlledSwiper ? { controller: { control: controlledSwiper } } : {})}
+      {...(setControlledSwiper ? { onSwiper: setControlledSwiper } : {})}
     >
       {items.map((item, index) => {
         return (
@@ -61,7 +69,7 @@ const ItemList: React.FC<ItemListProps> = ({name, items, activeIndex, setActiveI
               customClass={`${name}-item-${index + 1} ${
                 index === activeIndex ? '' : 'blur-md scale-90'
               }`}
-              onClick={() => handleClick(index)}
+              onClick={() => setActiveIndex(index)}
             />
           </SwiperSlide>
         );
