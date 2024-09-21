@@ -1,13 +1,24 @@
 // src/services/celebrityService.ts
 
-export const getCelebrities = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/celebrities');
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching celebrity data:', error);
-      return [];
-    }
+import { airtableApi } from './api'; // Assuming you've exported airtableApi from an api.ts file
+
+interface Celebrity {
+  // Define the structure of a celebrity object here
+  // For example:
+  id: string;
+  fields: {
+    Name?: string;
+    Image?: string;
+    // Add other fields as needed
   };
-  
+}
+
+export const getCelebrities = async (): Promise<Celebrity[]> => {
+  try {
+    const response = await airtableApi.get<Celebrity[]>('/celebrities');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching celebrity data:', error);
+    return [];
+  }
+};

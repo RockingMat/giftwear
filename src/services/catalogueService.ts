@@ -1,38 +1,43 @@
 // src/services/catalogueService.ts
 
+import { airtableApi } from './api'; // Assuming you've exported airtableApi from an api.ts file
+
+interface AirtableRecord {
+  fields: {
+    Name?: string;
+    'Front Image'?: any;
+    [key: string]: any;
+  };
+}
+
+const handleApiError = (error: any, itemType: string) => {
+  console.error(`Error fetching ${itemType} data:`, error);
+  return [];
+};
+
 export const getUpperwearItems = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/Upperwear');
-      const data = await response.json();
-      const filteredData = data.filter((item: { fields: { Name?: string} }) => item.fields.Name);
-      return filteredData;
-    } catch (error) {
-      console.error('Error fetching catalogue data:', error);
-      return [];
-    }
-  };
+  try {
+    const response = await airtableApi.get('/Upperwear');
+    return response.data.filter((item: AirtableRecord) => item.fields.Name);
+  } catch (error) {
+    return handleApiError(error, 'Upperwear');
+  }
+};
 
-  export const getLowerwearItems = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/Lowerwear');
-      const data = await response.json();
-      const filteredData = data.filter((item: { fields: { 'Front Image'?: any } }) => item.fields['Front Image']);
-      return filteredData;
-    } catch (error) {
-      console.error('Error fetching catalogue data:', error);
-      return [];
-    }
-  };
+export const getLowerwearItems = async () => {
+  try {
+    const response = await airtableApi.get('/Lowerwear');
+    return response.data.filter((item: AirtableRecord) => item.fields['Front Image']);
+  } catch (error) {
+    return handleApiError(error, 'Lowerwear');
+  }
+};
 
-  export const getFootwearItems = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/Footwear');
-      const data = await response.json();
-      const filteredData = data.filter((item: { fields: { 'Front Image'?: any } }) => item.fields['Front Image']);
-      return filteredData;
-    } catch (error) {
-      console.error('Error fetching catalogue data:', error);
-      return [];
-    }
-  };
-  
+export const getFootwearItems = async () => {
+  try {
+    const response = await airtableApi.get('/Footwear');
+    return response.data.filter((item: AirtableRecord) => item.fields['Front Image']);
+  } catch (error) {
+    return handleApiError(error, 'Footwear');
+  }
+};

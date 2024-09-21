@@ -26,19 +26,54 @@ const CelebritySwiper: React.FC<CelebritySwiperProps> = ({ likedStyles, setLiked
       navigate('/catalog');
     }
   }, [likedStyles, navigate]);
+
+
+  const onSwipe = (direction: string, celebrityName: string) => {
+    if (direction === 'right') {
+      setLikedStyles(prevState => [...prevState, celebrityName]);
+    }
+  }
+
+  const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+useEffect(() => {
+  const fetchCelebrityData = async () => {
+    try {
+      setIsLoading(true);
+      const data = await getCelebrities();
+      setCelebrities(data.reverse());
+    } catch (err) {
+      setError('Failed to fetch celebrities');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  fetchCelebrityData();
+}, []);
+
+if (isLoading) return <div>Loading...</div>;
+if (error) return <div>Error: {error}</div>;
+  
   return (
-    <div>
-      <link href='https://fonts.googleapis.com/css?family=Damion&display=swap' rel='stylesheet' />
-      <link href='https://fonts.googleapis.com/css?family=Alatsi&display=swap' rel='stylesheet' />
-      <div className='cardContainer'>
-        {celebrities.map((celebrity) => (
-          <TinderCard className='swipe' key={celebrity.fields.CelebrityName}>
-            <div style={{ backgroundImage: 'url(' + celebrity.fields.Image[0].url + ')' }} className='card'>
+    <div className="cardContainer">
+      {celebrities.map((celebrity) => (
+        <TinderCard 
+          className='swipe' 
+          key={celebrity.fields.CelebrityName}
+          onSwipe={(dir) => onSwipe(dir, celebrity.fields.CelebrityName)}
+          preventSwipe={['up', 'down']}
+        >
+          <div 
+            style={{ backgroundImage: `url(${celebrity.fields.Image[0].url})` }} 
+            className='card'
+          >
+            <div className="cardContent">
               <h3>{celebrity.fields.CelebrityName}</h3>
             </div>
-          </TinderCard>
-        ))}
-      </div>
+          </div>
+        </TinderCard>
+      ))}
     </div>
   );
 
