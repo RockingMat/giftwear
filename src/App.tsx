@@ -43,7 +43,7 @@ const App: React.FC = () => {
               <Styling upperwearItem={item}/>
             </ProtectedRoute>
           } />
-          <Route path="/celebrity" element={
+          <Route path="/celebrity/:recipientId" element={
             <ProtectedRoute>
               <CelebritySwiper likedStyles={likedStyles} setLikedStyles={setLikedStyles}/>
             </ProtectedRoute>
