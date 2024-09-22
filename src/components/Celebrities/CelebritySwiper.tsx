@@ -87,6 +87,7 @@ const CelebritySwiper: React.FC = () => {
   if (error) return <div>Error: {error}</div>;
   
   return (
+    <div className="swiperWrapper">
     <div className="cardContainer">
       {celebrities.map((celebrity) => (
         <TinderCard 
@@ -105,6 +106,7 @@ const CelebritySwiper: React.FC = () => {
           </div>
         </TinderCard>
       ))}
+    </div>
     </div>
   );
 };

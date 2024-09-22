@@ -1,9 +1,12 @@
 .cardContainer {
   width: 90vw;
-  max-width: 260px;
-  height: 300px;
+  max-width: 400px; /* Increased from 260px */
+  height: 500px; /* Increased from 300px */
   position: relative;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .swipe {
@@ -35,4 +38,13 @@
   left: 0;
   margin: 10px;
   color: #fff;
+  font-size: 1.5rem; /* Increased font size */
+}
+
+.swiperWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
 }

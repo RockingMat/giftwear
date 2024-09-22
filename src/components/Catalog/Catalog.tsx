@@ -102,7 +102,7 @@ const Catalog: React.FC<CatalogProps> = ({ setItem }) => {
     
     const filtered = items.filter(item => {
       const matchesFilter = (
-        (filters.gender === '' || item.fields.Gender?.toUpperCase === filters.gender.toUpperCase) &&
+        (filters.gender === '' || item.fields.Gender?.toUpperCase() === filters.gender.toUpperCase()) &&
         (filters.ageGroup.length === 0 || (item.fields['Age Group'] && filters.ageGroup.some(age => item.fields['Age Group']!.includes(age)))) &&
         (filters.styles === '' || item.fields.Styles === filters.styles) &&
         (filters.sizes.length === 0 || (item.fields['Size (General)'] && filters.sizes.some(size => item.fields['Size (General)']!.includes(size)))) &&
@@ -110,7 +110,6 @@ const Catalog: React.FC<CatalogProps> = ({ setItem }) => {
         (filters.season.length === 0 || (item.fields.Season && filters.season.some(season => item.fields.Season!.includes(season))))
       );
       
-      if(!(filters.gender === '' || item.fields.Gender === filters.gender)) console.log(item.fields.Gender, " ", filters.gender);
       if(!(filters.ageGroup.length === 0 || (item.fields['Age Group'] && filters.ageGroup.some(age => item.fields['Age Group']!.includes(age))))) console.log(item.fields['Age Group'], " ", filters.ageGroup);
       if(!(filters.styles === '' || item.fields.Styles === filters.styles)) console.log(item.fields.Styles, " ", filters.styles);
       if(!(filters.sizes.length === 0 || (item.fields['Size (General)'] && filters.sizes.some(size => item.fields['Size (General)']!.includes(size)))) ) console.log(item.fields['Size (General)'], " ", filters.sizes);
@@ -147,12 +146,9 @@ const Catalog: React.FC<CatalogProps> = ({ setItem }) => {
 
   return (
     <div className="flex h-screen w-screen bg-white">
-      <button onClick={() => setIsFilterMenuOpen(true)}>Filter</button>
       <FilterMenu 
         filters={filters}
         onFilterChange={setFilters}
-        isOpen={isFilterMenuOpen}
-        onClose={() => setIsFilterMenuOpen(false)}
       />
       {/* Left Component - 2/3 of the screen */}
       <div className="basis-2/3 container mx-auto overflow-hidden">
