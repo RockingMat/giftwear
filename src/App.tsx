@@ -14,7 +14,6 @@ import NewRecipientForm from './components/Profile/NewRecipientForm';
 import RecipientList from './components/Profile/RecipientList';
 
 const App: React.FC = () => {
-  const [likedStyles, setLikedStyles] = useState<string[]>([]);
   const [item, setItem] = useState<any | null>(null);
 
   return (
@@ -27,9 +26,9 @@ const App: React.FC = () => {
 
           {/* Protected routes */}
           <Route path="/" element={<ProtectedRoute><Navigate to="/catalog" replace /></ProtectedRoute>} />
-          <Route path="/catalog" element={
+          <Route path="/catalog/:recipientId" element={
             <ProtectedRoute>
-              <Catalog likedStyles={likedStyles} setItem={setItem}/>
+              <Catalog setItem={setItem}/>
             </ProtectedRoute>
           } />
           {/* <Route path="/catalog/:recipientId" element={
@@ -38,14 +37,14 @@ const App: React.FC = () => {
             </ProtectedRoute>
           } /> */}
           
-          <Route path="/styling" element={
+          <Route path="/styling/:recipientId" element={
             <ProtectedRoute>
               <Styling upperwearItem={item}/>
             </ProtectedRoute>
           } />
           <Route path="/celebrity/:recipientId" element={
             <ProtectedRoute>
-              <CelebritySwiper likedStyles={likedStyles} setLikedStyles={setLikedStyles}/>
+              <CelebritySwiper/>
             </ProtectedRoute>
           } />
           <Route path="/add-recipient" element={
@@ -56,6 +55,11 @@ const App: React.FC = () => {
           <Route path="/recipient-list" element={
             <ProtectedRoute>
               <RecipientList/>
+            </ProtectedRoute>
+          } />
+          <Route path="/edit-recipient/:id" element={
+            <ProtectedRoute>
+              <NewRecipientForm/>
             </ProtectedRoute>
           } />
 

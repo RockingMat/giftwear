@@ -1,32 +1,4 @@
-/* src/components/Recipient/RecipientList.css */
-
-.recipient-list h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .contact-card {
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    padding: 15px;
-    height: 100%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .contact-card:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .contact-card h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-  
-  .contact-card p {
-    margin: 5px 0;
-  }
-  .add-recipient-button {
+.add-recipient-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
