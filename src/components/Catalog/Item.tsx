@@ -21,10 +21,10 @@ const Item: React.FC<ItemProps> = ({ src, index, alt, customClass, height, onCli
   console.log(height);
   return (
     <div
-      className={`flex items-center justify-center cursor-pointer ${customClass} border-4 border-black bg-white rounded-lg`}
+      className={`flex items-center justify-center cursor-pointer ${customClass}`}
       onClick={handleItemClick}
     >
-      <img src={src} alt={alt} className={`object-contain`} style={{ maxHeight: `${height}rem` }} />
+      <img src={src} alt={alt} className={`object-contain`} style={{ maxHeight: `${height}rem`, height: '40rem' }} />
     </div>
   );
 };

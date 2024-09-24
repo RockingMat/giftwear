@@ -13,12 +13,14 @@ interface FilterMenuProps {
 const FilterMenu: React.FC<FilterMenuProps> = ({ filters, onFilterChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const toggleFilter = () => setIsOpen(!isOpen);
 
+  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node) && buttonRef.current && !buttonRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -30,22 +32,20 @@ const FilterMenu: React.FC<FilterMenuProps> = ({ filters, onFilterChange }) => {
   }, []);
 
   return (
-    <div className="relative inline-block" ref={menuRef}>
-      <button onClick={toggleFilter} className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md">
-        <img src="/uploads/filter.jpg" alt="Filter" className="w-6 h-6" />
+    <div className="relative inline-block">
+      <button ref={buttonRef} onClick={toggleFilter} className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md">
+        <img src="http://localhost:3000/uploads/filter.jpg" alt="Filter" className="w-6 h-6" />
         <span>Filter</span>
-      </button> 
-      {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg rounded-md p-4 z-10">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold">Filters</h3>
-            <button onClick={toggleFilter} className="text-gray-500 hover:text-gray-700">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+      </button>
 
+      {isOpen && (
+        <div
+          ref={menuRef}
+          className="absolute left-0 mt-1 w-64 bg-white shadow-lg rounded-md p-4 z-50"
+          style={{
+            top: buttonRef.current ? `${buttonRef.current.getBoundingClientRect().bottom + window.scrollY}px` : '0px',
+          }}
+        >
           <div className="space-y-4">
             <div>
               <label className="block mb-1 font-medium">Gender:</label>

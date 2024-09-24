@@ -24,7 +24,6 @@ const Catalog: React.FC<CatalogProps> = ({ setItem }) => {
   const navigate = useNavigate();
   const [firstSwiper, setFirstSwiper] = useState(null);
   const [secondSwiper, setSecondSwiper] = useState(null);
-  const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const [filters, setFilters] = useState({
     gender: '',
     ageGroup: [],
@@ -158,7 +157,7 @@ const Catalog: React.FC<CatalogProps> = ({ setItem }) => {
             items={upperwearSlides} 
             activeIndex={activeIndex} 
             setActiveIndex={setActiveIndex} 
-            height={150} 
+            height={500} 
             controlledSwiper={secondSwiper}
             setControlledSwiper={setFirstSwiper}
           />

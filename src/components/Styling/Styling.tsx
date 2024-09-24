@@ -119,7 +119,7 @@ const Styling: React.FC<StylingProps> = ({ upperwearItem }) => {
                 </div>
 
                 {/* Upperwear Image with Headshot */}
-                <div className="flex justify-center items-center h-1/3 border-8 border-black relative">
+                <div className="flex justify-center items-center h-1/3 relative">
                     {headshot && (
                         <img
                             src={headshot}
@@ -135,7 +135,7 @@ const Styling: React.FC<StylingProps> = ({ upperwearItem }) => {
                 </div>
         
                 {/* Lowerwear Component */}
-                <div className="my-4 border-8 border-black">
+                <div>
                     <ItemList
                         name="lowerwear"
                         items={lowerwearSlides}
@@ -146,7 +146,7 @@ const Styling: React.FC<StylingProps> = ({ upperwearItem }) => {
                 </div>
         
                 {/* Footwear Component */}
-                <div className="border-8 border-black">
+                <div>
                     <ItemList
                         name="footwear"
                         items={footwearSlides}
