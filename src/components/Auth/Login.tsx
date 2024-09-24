@@ -34,7 +34,7 @@ const Login: React.FC = () => {
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div className="mb-8">
-            <img className="mx-auto h-12 w-auto" src="/logo.png" alt="Logo" />
+            <img className="mx-auto h-12 w-auto" src="http://localhost:3000/uploads/logo.png" alt="Logo" />
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account
@@ -109,7 +109,7 @@ const Login: React.FC = () => {
       <div className="hidden lg:block relative w-0 flex-1">
     <div 
       className="absolute inset-0 bg-cover bg-center"
-      style={{ backgroundImage: "url('/loginBackground.png')" }}
+      style={{ backgroundImage: "url('http://localhost:3000/uploads/loginBackground.png')" }}
     ></div>
   </div>
     </div>
