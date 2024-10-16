@@ -87,29 +87,33 @@ const CelebritySwiper: React.FC = () => {
   if (error) return <div>Error: {error}</div>;
   
   return (
-    <div className="swiperWrapper">
-    <div className="cardContainer">
-      {celebrities.map((celebrity) => (
-        <TinderCard 
-          className='swipe' 
-          key={celebrity.fields.CelebrityName}
-          onSwipe={(dir) => onSwipe(dir, celebrity.fields.CelebrityName)}
-          preventSwipe={['up', 'down']}
-        >
-          <div 
-            style={{ backgroundImage: `url(${celebrity.fields.Image[0].url})` }} 
-            className='card'
-          >
-            <div className="cardContent">
-              <h3>{celebrity.fields.CelebrityName}</h3>
-            </div>
-          </div>
-        </TinderCard>
-      ))}
-    </div>
+    <div className="text-center">
+      <h2 className="text-3xl font-bold mb-2">Which celebrity best matches their style?</h2>
+      <p className="text-sm text-gray-600 mb-6">Swipe right on up to 5 celebrities that best match the recipient's style.</p>
+
+      <div className="swiperWrapper">
+        <div className="cardContainer">
+          {celebrities.map((celebrity) => (
+            <TinderCard 
+              className='swipe' 
+              key={celebrity.fields.CelebrityName}
+              onSwipe={(dir) => onSwipe(dir, celebrity.fields.CelebrityName)}
+              preventSwipe={['up', 'down']}
+            >
+              <div 
+                style={{ backgroundImage: `url(${celebrity.fields.Image[0].url})` }} 
+                className='card'
+              >
+                <div className="cardContent">
+                  <h3>{celebrity.fields.CelebrityName}</h3>
+                </div>
+              </div>
+            </TinderCard>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default CelebritySwiper;
-

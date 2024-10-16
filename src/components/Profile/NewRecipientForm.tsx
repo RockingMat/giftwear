@@ -124,7 +124,7 @@ const NewRecipientForm: React.FC = () => {
         </div>
         <div>
           <label htmlFor="preferredSizes" className="block text-sm font-medium text-gray-700">
-            Preferred Upperwear Sizes
+            Preferred Upperwear Sizes (sizes vary, recommended to choose a size up or down)
           </label>
           <select
             id="preferredSizes"

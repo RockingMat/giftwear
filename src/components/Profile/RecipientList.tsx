@@ -52,6 +52,10 @@ const RecipientList: React.FC = () => {
 
   return (
     <div className="bg-gray-100">
+      <div className="text-center py-10">
+        <h2 className="text-3xl font-bold mb-2">Who is it for?</h2>
+        <p className="text-sm text-gray-600">Click '+' to make a new recipient.</p>
+      </div>
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-10 md:p-20 lg:p-20">
         {isLoading && <h1>Fetching data...</h1>}
         {error && <h1>{error}</h1>}

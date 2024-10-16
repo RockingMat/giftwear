@@ -3,6 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 const AUTH_API_URL = 'http://localhost:3000/api/auth';
 const AIRTABLE_API_URL = 'http://localhost:3000/api/airtable';
 const RECIPIENT_API_URL = 'http://localhost:3000/api/recipients';
+const EMAIL_API_URL = 'http://localhost:3000/api/emails';
 
 const createApiWithAuth = (baseURL: string): AxiosInstance => {
   const api = axios.create({
@@ -43,7 +44,7 @@ const createApiWithAuth = (baseURL: string): AxiosInstance => {
 export const authApi = createApiWithAuth(AUTH_API_URL);
 export const airtableApi = createApiWithAuth(AIRTABLE_API_URL);
 export const recipientApi = createApiWithAuth(RECIPIENT_API_URL);
-
+export const emailApi = createApiWithAuth(EMAIL_API_URL);
 // Helper function to set token after login/register
 export const setAuthToken = (token: string) => {
   localStorage.setItem('token', token);

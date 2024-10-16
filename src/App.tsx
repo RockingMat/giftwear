@@ -12,6 +12,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import './style.scss';
 import NewRecipientForm from './components/Profile/NewRecipientForm';
 import RecipientList from './components/Profile/RecipientList';
+import EmailSignup from './components/EmailSignup/EmailSignup';
 
 const App: React.FC = () => {
   const [item, setItem] = useState<any | null>(null);
@@ -62,6 +63,7 @@ const App: React.FC = () => {
               <NewRecipientForm/>
             </ProtectedRoute>
           } />
+          <Route path="/email-signup" element={<EmailSignup />} />
 
           {/* Catch-all route for 404 */}
           <Route path="*" element={<Navigate to="/login" replace />} />
