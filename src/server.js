@@ -4,6 +4,7 @@ import express from 'express';
 import Airtable from 'airtable';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import serverless from 'serverless-http';
 
 dotenv.config();
 
@@ -113,6 +114,15 @@ app.get('/api/celebrities', (req, res) => {
     );
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// Wrap the Express app with serverless
+const handler = serverless(app);
+
+// Export the serverless handler
+export default handler;
+
+// Keep the local development server
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}

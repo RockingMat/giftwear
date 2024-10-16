@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+console.log('BACKEND_URL:', BACKEND_URL);
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +19,21 @@ const Login: React.FC = () => {
     setError(null);
     setIsLoading(true);
     try {
-      await login(email, password);
+      console.log('Attempting to connect to:', `${BACKEND_URL}/api/login`);
+      const response = await fetch(`${BACKEND_URL}/api/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Login failed. Please check your credentials.');
+      }
+
+      const data = await response.json();
+      await login(data.token); // Assuming your login function now takes a token
       navigate('/recipient-list');
     } catch (err) {
       if (err instanceof Error) {
@@ -34,7 +51,7 @@ const Login: React.FC = () => {
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div className="mb-8">
-            <img className="mx-auto h-12 w-auto" src="http://localhost:3000/uploads/logo.png" alt="Logo" />
+            <img className="mx-auto h-12 w-auto" src={`${BACKEND_URL}/uploads/logo.png`} alt="Logo" />
           </div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account
@@ -107,11 +124,11 @@ const Login: React.FC = () => {
         </div>
       </div>
       <div className="hidden lg:block relative w-0 flex-1">
-    <div 
-      className="absolute inset-0 bg-cover bg-center"
-      style={{ backgroundImage: "url('http://localhost:3000/uploads/loginBackground.png')" }}
-    ></div>
-  </div>
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url('${BACKEND_URL}/uploads/loginBackground.png')` }}
+        ></div>
+      </div>
     </div>
   );
 };
